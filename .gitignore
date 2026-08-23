@@ -1,0 +1,60 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+dist-ssr/
+
+# TypeScript build cache
+*.tsbuildinfo
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Local environment
+*.local
+.env
+.env.*
+!.env.example
+
+# Editor and OS
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.DS_Store
+Thumbs.db
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Test and browser artifacts
+coverage/
+test-results/
+playwright-report/
+blob-report/
+.playwright/
+playwright/.auth/
+.browser/
+browser-profile/
+chrome-profile/
+edge-profile/
+*.har
+
+# Local design and review artifacts
+.impeccable/
+color-palette-check.png
+daily-report-multimodel-check.png
+sidebar-accent-check.png
+efficiency-desktop.png
+efficiency-mobile.png
+
+# pnpm local store
+.pnpm-store/
