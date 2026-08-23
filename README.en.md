@@ -6,6 +6,18 @@ English ｜ [中文](./README.md)
 
 A lightweight production data management and improvement analysis platform for lean improvement engineers and production operations staff. It is designed for manufacturing sites that cannot yet ingest real-time MES, equipment, or IoT data, and instead rely on manual entry and browser-local data, with record export and local backup support.
 
+## Screenshots
+
+> Local interface examples with the optional demo data loaded. Click an image to view it at full size.
+
+| Cockpit | Daily Report |
+| --- | --- |
+| [![Cockpit](docs/images/dashboard.png)](docs/images/dashboard.png) | [![Daily Report](docs/images/daily-report.png)](docs/images/daily-report.png) |
+
+| Efficiency Analysis | Anomaly Analysis |
+| --- | --- |
+| [![Efficiency Analysis](docs/images/efficiency-analysis.png)](docs/images/efficiency-analysis.png) | [![Anomaly Analysis](docs/images/anomaly-analysis.png)](docs/images/anomaly-analysis.png) |
+
 ## 1. Overview
 
 The platform consolidates a workflow that typically lives on paper daily reports, spreadsheets, and verbal communication — shift production data, product output, labor input, line-stop anomalies, and improvement priorities — into a closed loop that can be entered, computed, drilled into, and exported. The cockpit summarizes the most recent complete production day and flags risks; efficiency analysis covers trends and labor productivity; anomaly management locates downtime losses; and daily reports preserve the raw data that every drill-down lands on.

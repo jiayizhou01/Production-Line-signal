@@ -6,6 +6,18 @@ Manufacturing Operations Dashboard for Lean Improvement
 
 面向精益改善工程师和生产运营人员的轻量级生产数据管理与改善分析平台。适用于暂时无法实时接入 MES、设备或 IoT 数据，主要依靠人工登记与浏览器本地数据运行，并支持记录导出与本地备份的制造现场。
 
+## 页面预览
+
+> 以下为加载演示数据后的本地界面示例；点击图片可查看大图。
+
+| 驾驶舱 | 生产日报 |
+| --- | --- |
+| [![驾驶舱](docs/images/dashboard.png)](docs/images/dashboard.png) | [![生产日报](docs/images/daily-report.png)](docs/images/daily-report.png) |
+
+| 效率分析 | 异常分析 |
+| --- | --- |
+| [![效率分析](docs/images/efficiency-analysis.png)](docs/images/efficiency-analysis.png) | [![异常分析](docs/images/anomaly-analysis.png)](docs/images/anomaly-analysis.png) |
+
 ## 1. 项目简介
 
 平台将分散在纸质日报、Excel 和口头沟通中的"班次生产数据—产品产出—人力投入—停线异常—改善优先级"流程，整合为可录入、可计算、可下钻、可导出的数字化闭环：驾驶舱汇总最近完整生产日并识别风险，效率分析负责趋势与人力投入产出，异常管理负责停线损失定位，生产日报保留原始数据并承接跨页面下钻。
