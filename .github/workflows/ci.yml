@@ -18,4 +18,5 @@ jobs:
       - run: pnpm run verify:data
       - run: pnpm run verify:demo
       - run: pnpm run verify:ai-context
+      - run: pnpm run verify:time
       - run: pnpm run build
