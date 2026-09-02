@@ -5,7 +5,7 @@ import { normalizeAiMessages } from '../services/aiConversation'
 
 const DB_NAME = 'manufacturing-operations'
 const DB_VERSION = 2
-const SCHEMA_VERSION = 7
+const SCHEMA_VERSION = 8
 const CURRENT_USER = '本地用户'
 const STORE_NAMES = ['productionReports', 'anomalies', 'actions', 'aiMessages', 'settings', 'users', 'meta'] as const
 
@@ -52,7 +52,7 @@ function normalizeAudit<T extends { id: string }>(record: T, createdAt: string):
 const touch = <T extends AuditFields>(record: T, patch: Partial<T>, timestamp = now()): T => ({ ...record, ...patch, updatedAt: timestamp, updatedBy: CURRENT_USER, version: record.version + 1 })
 
 function createSettings(createdAt: string): AppSettings {
-  return { ...withSeedAudit({ id: 'settings' }, createdAt), lines: [], productModels: [], departments: [], stations: [], defaultCtSeconds: {}, anomalyTypes: [], seedReferenceValues: emptySeedReferenceValues(), indicatorFormulaVersion: 'v1' }
+  return { ...withSeedAudit({ id: 'settings' }, createdAt), lines: [], productModels: [], departments: [], stations: [], defaultCtSeconds: {}, anomalyTypes: [], seedReferenceValues: emptySeedReferenceValues(), indicatorFormulaVersion: 'v2-calendar-shift' }
 }
 function createUsers(createdAt: string): AppUser[] { return [{ ...withSeedAudit({ id: 'local-user' }, createdAt), name: CURRENT_USER, department: '未配置', role: '本地操作用户' }] }
 
@@ -83,7 +83,7 @@ function normalizeSettings(raw: AppSettings | undefined, reports: DailyReport[],
     seedReferenceValues.stations = unique([...seedReferenceValues.stations, ...stations.filter((station) => DEMO_STATIONS.some((seed) => sameText(seed, station)))])
     seedReferenceValues.anomalyTypeIds = unique([...seedReferenceValues.anomalyTypeIds, ...DEMO_ANOMALY_TYPES.map((item) => item.id)])
   }
-  return { ...base, lines, productModels, departments, stations, defaultCtSeconds, anomalyTypes, seedReferenceValues }
+  return { ...base, lines, productModels, departments, stations, defaultCtSeconds, anomalyTypes, seedReferenceValues, indicatorFormulaVersion: 'v2-calendar-shift' }
 }
 
 async function initializeDatabase(database: IDBDatabase): Promise<DataSnapshot> {

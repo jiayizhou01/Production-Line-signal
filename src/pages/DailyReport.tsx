@@ -142,7 +142,6 @@ export default function DailyReport() {
   const formTimeSummary = getReportTimeSummary({
     shiftHours: form?.shiftHours ?? 0,
     mealBreakHours: form?.mealBreakHours ?? 0,
-    downtime: form?.downtime ?? 0,
     operators: form?.operators ?? 0,
     staffing: form?.staffing ?? 0
   })
@@ -254,6 +253,14 @@ export default function DailyReport() {
     if (!form) return
     if (!settings?.lines.length || !settings.productModels.length || !form.line || form.productDetails.some((detail) => !detail.productModel)) {
       setSaveError('请先新增并选择产线和产品型号，再保存日报。')
+      return
+    }
+    if (form.shiftHours < 0 || form.mealBreakHours < 0 || form.downtime < 0 || form.staffing < 0 || form.operators < 0) {
+      setSaveError('班次时长、吃饭时长、计划停机时长和人数不能为负数。')
+      return
+    }
+    if (form.mealBreakHours > form.shiftHours) {
+      setSaveError('吃饭时长不能大于班次时长。')
       return
     }
     const productDetails = form.productDetails.map(({ id, ctSeconds, ...detail }) => ({ ...detail, lineCt: ctSeconds / 3600 }))
@@ -380,9 +387,9 @@ export default function DailyReport() {
             <div className="col-span-full pt-2 text-sm font-bold text-slate-800">开班时间</div>
             <div><label className={labelClass}>班次时长（小时）</label><input type="number" min="0" step="0.1" value={form.shiftHours} onChange={(event) => updateNumber('shiftHours', event.target.value)} className={inputClass} /></div>
             <div><label className={labelClass}>吃饭时长（小时）</label><input type="number" min="0" step="0.1" value={form.mealBreakHours} onChange={(event) => updateNumber('mealBreakHours', event.target.value)} className={inputClass} /></div>
-            <div><label className={labelClass}>日历开线时长（小时） <span className="rounded bg-primary-50 px-1.5 py-0.5 text-[10px] text-primary-600">自动计算</span></label><input readOnly value={calendarOpenHours} className={readOnlyClass} /><p className="mt-1 text-xs text-slate-400">班次时长 − 吃饭时长</p></div>
+            <div><label className={labelClass}>日历开线时长（小时） <span className="rounded bg-primary-50 px-1.5 py-0.5 text-[10px] text-primary-600">自动计算</span></label><input readOnly value={calendarOpenHours} className={readOnlyClass} /><p className="mt-1 text-xs text-slate-400">等于班次时长</p></div>
             <div><label className={labelClass}>计划停机时长（小时）</label><input type="number" min="0" step="0.1" value={form.downtime} onChange={(event) => updateNumber('downtime', event.target.value)} className={inputClass} /></div>
-            <div className="col-span-full"><label className={labelClass}>产线可利用时长（小时） <span className="rounded bg-primary-50 px-1.5 py-0.5 text-[10px] text-primary-600">自动计算</span></label><input readOnly value={lineAvailableHours} className={readOnlyClass} /><p className="mt-1 text-xs text-slate-400">日历开线时长 − 计划停机时长</p></div>
+            <div className="col-span-full"><label className={labelClass}>产线可利用时长（小时） <span className="rounded bg-primary-50 px-1.5 py-0.5 text-[10px] text-primary-600">自动计算</span></label><input readOnly value={lineAvailableHours} className={readOnlyClass} /><p className="mt-1 text-xs text-slate-400">日历开线时长 − 吃饭时长</p></div>
 
             <div className={sectionClass}>人力</div>
             <div><label className={labelClass}>定编人数</label><input type="number" min="0" value={form.staffing} onChange={(event) => updateNumber('staffing', event.target.value)} className={inputClass} /></div>

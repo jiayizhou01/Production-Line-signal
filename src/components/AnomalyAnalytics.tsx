@@ -4,7 +4,7 @@ import { useSearchParams } from 'react-router-dom'
 import type { Anomaly, AnomalyTypeDefinition, DailyReport } from '../types'
 import { readNavigationContext, updateNavigationContext } from '../services/navigationContext'
 import { mergeStopMinutes, splitStopAnomaly } from '../services/anomalyDowntime'
-import { computeReport } from '../services/kpiService'
+import { computeReport, getReportTimeSummary } from '../services/kpiService'
 import { getAnomalyTypeName } from '../services/referenceData'
 
 type Shift = '白班' | '夜班'
@@ -59,7 +59,7 @@ function buildAnalytics(anomalies: Anomaly[], reports: DailyReport[], filters: {
   const summaries: Summary[] = [...grouped.entries()].map(([key, segments]) => {
     const [date, shift, line] = key.split('|') as [string, Shift, string]
     const report = reportFor(reports, date, shift, line)
-    const calendarMinutes = Math.max(1, ((report?.shiftHours ?? 12) - (report?.mealBreakHours ?? 0)) * 60)
+    const calendarMinutes = Math.max(1, (report ? getReportTimeSummary(report).calendarOpenHours : 12) * 60)
     const ctSeconds = Math.max(1, (report ? computeReport(report).lineCt : 30 / 3600) * 3600)
     const stationSegments = new Map<string, typeof segments>()
     segments.forEach((segment) => {

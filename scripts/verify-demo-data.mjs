@@ -1,9 +1,9 @@
 import { readFileSync } from 'node:fs'
-import ts from 'typescript'
+import { stripTypeScriptTypes } from 'node:module'
 
 const root = new URL('../', import.meta.url)
 const source = readFileSync(new URL('src/data/mockData.ts', root), 'utf8')
-const code = ts.transpileModule(source, { compilerOptions: { module: ts.ModuleKind.ESNext, target: ts.ScriptTarget.ES2022 } }).outputText
+const code = stripTypeScriptTypes(source, { mode: 'transform' })
 const { mockDailyReports, mockAnomalies } = await import(`data:text/javascript,${encodeURIComponent(code)}`)
 const assert = (condition, message) => { if (!condition) throw new Error(message) }
 

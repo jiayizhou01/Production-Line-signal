@@ -17,9 +17,9 @@ export function getProductionWeightedCt(items: CtWeightedItem[]) {
   return totalGoodQty > 0 ? getCtWeightedNumerator(items) / totalGoodQty : 0
 }
 
-export function getReportTimeSummary(report: Pick<DailyReport, 'shiftHours' | 'mealBreakHours' | 'downtime' | 'operators' | 'staffing'>) {
-  const calendarOpenHours = Math.max(0, report.shiftHours - report.mealBreakHours)
-  const lineAvailableHours = Math.max(0, calendarOpenHours - report.downtime)
+export function getReportTimeSummary(report: Pick<DailyReport, 'shiftHours' | 'mealBreakHours' | 'operators' | 'staffing'>) {
+  const calendarOpenHours = Math.max(0, report.shiftHours)
+  const lineAvailableHours = Math.max(0, calendarOpenHours - report.mealBreakHours)
   return {
     calendarOpenHours,
     lineAvailableHours,

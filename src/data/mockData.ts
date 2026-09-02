@@ -55,7 +55,7 @@ function generateDailyReports(): DailyReportSeed[] {
         const shiftHours = 10
         const mealBreakHours = 1
         const downtime = 0.15 + ((dayIndex * 3 + lineIndex * 7 + shiftIndex * 5) % 12) * 0.08 + ([12, 27, 44, 53].includes(dayIndex % 61) ? 0.65 : 0)
-        const availableHours = shiftHours - mealBreakHours - downtime
+        const availableHours = shiftHours - mealBreakHours
         const productDetails = createProductDetails(dayIndex, lineIndex, shiftIndex, availableHours)
         const plannedQty = productDetails.reduce((sum, detail) => sum + detail.plannedQty, 0)
         const actualQty = productDetails.reduce((sum, detail) => sum + detail.actualQty, 0)
@@ -72,7 +72,7 @@ function generateDailyReports(): DailyReportSeed[] {
           productModel: primary.productModel,
           plannedQty,
           actualQty,
-          productionTime: availableHours,
+          productionTime: shiftHours,
           downtime: Number(downtime.toFixed(2)),
           operators,
           staffing,

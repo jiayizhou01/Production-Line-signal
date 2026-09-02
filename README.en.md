@@ -59,7 +59,7 @@ The author first mapped the business objects, metric definitions, and page infor
 4. Daily OEE, UPPH, attainment, and yield are always re-aggregated from base quantities and hours, never averaged from shift-level metrics;
 5. Planned downtime (inspection, 5S, scheduled maintenance) and anomaly stoppages are tracked separately;
 6. Total anomaly stop time, station downtime rankings, and OEE impact use interval-merged deduplicated stop time; anomaly-type accumulated downtime uses raw registered durations to preserve type attribution, which is not equal to the deduplicated line total; cross-shift anomalies are split at shift boundaries and attributed to the correct working day;
-7. Available line time does not subtract anomaly stop time; anomaly losses are tracked separately.
+7. Available line hours exclude meal breaks only; planned downtime and anomaly stoppages remain separately tracked losses.
 
 ## 6. Metric Definitions
 
@@ -71,8 +71,8 @@ The author first mapped the business objects, metric definitions, and page infor
 | Yield rate | Σ good output ÷ Σ actual output |
 | OEE | Σ(good output × CT) ÷ Σ calendar open hours (simplified; not the full three-factor OEE) |
 | UPPH | Σ good output ÷ Σ actual attended hours |
-| Calendar open hours | shift hours − meal break |
-| Available line hours | calendar open hours − planned downtime |
+| Calendar open hours | shift hours |
+| Available line hours | calendar open hours − meal-break hours |
 | Actual attended hours | actual operators × available line hours |
 | Theoretical staffing hours | standard staffing × available line hours |
 | Standard earned hours | Σ(good output per model × CT × line standard staffing), CT in hours |

@@ -13,6 +13,7 @@
     "verify:data": "node scripts/verify-data-architecture.mjs",
     "verify:demo": "node scripts/verify-demo-data.mjs",
     "verify:ai-context": "node --experimental-strip-types scripts/verify-ai-conversation-context.mjs",
+    "verify:time": "node scripts/verify-time-formulas.mjs",
     "preview": "vite preview"
   },
   "dependencies": {
